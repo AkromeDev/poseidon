@@ -7,7 +7,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
-
+/***
+ * 
+ * @author j.c.
+ * POJO class CurvePoint
+ *
+ */
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
@@ -30,6 +35,12 @@ public class CurvePoint {
 	@Column(name = "creationDate")
 	Timestamp creationDate;
 
+	/***
+	 * Constructor for test purposes
+	 * @param curveId
+	 * @param term
+	 * @param value
+	 */
 	public CurvePoint(int curveId, double term, double value) {
 		this.curveId = curveId;
 		this.term = term;

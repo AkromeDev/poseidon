@@ -5,6 +5,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+/***
+ * 
+ * @author j.c.
+ * POJO class Rating
+ *
+ */
 @Entity
 @Table(name = "rating")
 public class Rating {
