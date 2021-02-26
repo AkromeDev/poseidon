@@ -86,6 +86,18 @@ public class BidList {
 	@Column(name = "side")
 	String side;
 
+	/***
+	 * Constructor for test purposes
+	 * @param account
+	 * @param type
+	 * @param bidQuantity
+	 */
+	public BidList(String account, String type, double bidQuantity) {
+		this.account = account;
+		this.dealType = type;
+		this.bidQuantity = bidQuantity;
+	}
+
 	public Integer getBidListId() {
 		return BidListId;
 	}
