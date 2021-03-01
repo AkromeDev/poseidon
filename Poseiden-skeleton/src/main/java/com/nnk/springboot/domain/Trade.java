@@ -12,7 +12,9 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "trade")
 public class Trade {
-	@Column(name = "tradeId")
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer tradeId;
 	
 	@Column(name = "account")

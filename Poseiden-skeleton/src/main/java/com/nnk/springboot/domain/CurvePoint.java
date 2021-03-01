@@ -17,19 +17,23 @@ import java.sql.Timestamp;
 @Table(name = "curvepoint")
 public class CurvePoint {
     
-	@Column(name = "id")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	
 	@Column(name = "curveId")
+	@NotBlank(message = "Curve id is mandatory")
 	Integer curveId;
 	
 	@Column(name = "asOfDate")
 	Timestamp asOfDate;
 	
 	@Column(name = "term")
+	@NotBlank(message = "Term is mandatory")
 	Double term;
 	
 	@Column(name = "value")
+	@NotBlank(message = "Value is mandatory")
 	Double value;
 	
 	@Column(name = "creationDate")

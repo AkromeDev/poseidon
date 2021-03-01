@@ -14,7 +14,8 @@ import java.sql.Timestamp;
 @Table(name = "rulename")
 public class RuleName {
 	
-	@Column(name = "id")
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	
 	@Column(name = "name")

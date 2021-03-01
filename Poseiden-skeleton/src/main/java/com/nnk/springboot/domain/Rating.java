@@ -15,7 +15,8 @@ import java.sql.Timestamp;
 @Table(name = "rating")
 public class Rating {
 
-	@Column(name = "id")
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	
 	@Column(name = "moodysRating")

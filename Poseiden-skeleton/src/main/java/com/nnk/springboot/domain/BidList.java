@@ -24,12 +24,15 @@ public class BidList {
 	Integer BidListId;
 	
 	@Column(name = "account")
+	@NotBlank(message = "Account is mandatory")
 	String account;
 	
 	@Column(name = "type")
+	@NotBlank(message = "Type is mandatory")
 	String type;
 	
 	@Column(name = "bidQuantity")
+	@NotBlank(message = "Bid quantity is mandatory")
 	Double bidQuantity;
 	
 	@Column(name = "askQuantity")
