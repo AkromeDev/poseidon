@@ -18,9 +18,11 @@ public class Trade {
 	Integer tradeId;
 	
 	@Column(name = "account")
+	@NotBlank(message = "Account id is mandatory")
 	String account;
 	
 	@Column(name = "type")
+	@NotBlank(message = "Type id is mandatory")
 	String type;
 	
 	@Column(name = "buyQuantity")

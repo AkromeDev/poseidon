@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  *
  */
 @Entity
-@Table(name = "rulename")
+@Table(name = "rule")
 public class RuleName {
 	
 	@Id
@@ -19,6 +19,7 @@ public class RuleName {
 	Integer id;
 	
 	@Column(name = "name")
+	@NotBlank(message = "Name id is mandatory")
 	String name;
 	
 	@Column(name = "description")
