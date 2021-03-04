@@ -37,6 +37,10 @@ public class User {
 		this.fullname = fullname;
 		this.role = role;
 	}
+    
+	public User() {
+		super();
+	}
 
 	public Integer getId() {
         return id;
