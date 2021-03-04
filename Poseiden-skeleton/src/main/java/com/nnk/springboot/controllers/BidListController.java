@@ -1,6 +1,10 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.BidList;
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,23 +13,35 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.service.BidListService;
 
 
+	
 @Controller
 public class BidListController {
-    // TODO: Inject Bid service
+    
+	@Autowired
+	BidListService bidListService;
 
+	/***
+	 * 
+	 * @param model
+	 * @return a List containing all BidLists
+	 */
     @RequestMapping("/bidList/list")
-    public String home(Model model)
-    {
-        // TODO: call service find all bids to show to the view
-        return "bidList/list";
+    public List<BidList> findAll() {
+        return bidListService.findAll();
     }
 
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bid) {
         return "bidList/add";
+    }
+    
+    @PostMapping("/bidList/add")
+    public BidList saveBidList(BidList bid) {
+    	return bidListService.saveBid(bid);
     }
 
     @PostMapping("/bidList/validate")
