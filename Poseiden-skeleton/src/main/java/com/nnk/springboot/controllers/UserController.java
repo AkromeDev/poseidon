@@ -1,7 +1,9 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.User;
-import com.nnk.springboot.repositories.UserRepository;
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -10,12 +12,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import com.nnk.springboot.domain.User;
+import com.nnk.springboot.repositories.UserRepository;
 
 @Controller
 public class UserController {
+	
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
+	
     @Autowired
     private UserRepository userRepository;
 
@@ -29,6 +36,16 @@ public class UserController {
     @GetMapping("/user/add")
     public String addUser(User bid) {
         return "user/add";
+    }
+    
+    @PostMapping("/login")
+    public User addInitialUser(@RequestBody User user) {
+    	
+    	log.debug("accessingt the /login endpoint");
+//    	User user = new User( 1111, "admin", "admin", "admin", "admin");
+    	
+    	log.debug("saving new: " + user);
+        return userRepository.save(user);
     }
 
     @PostMapping("/user/validate")
