@@ -38,10 +38,16 @@ public class UserController {
         return "user/add";
     }
     
+    @PostMapping("user/add")
+    public User saveUser(User user) {
+    	userRepository.save(user);
+    	return user;
+    }
+    
     @PostMapping("/login")
     public User addInitialUser(@RequestBody User user) {
     	
-    	log.debug("accessingt the /login endpoint");
+    	log.debug("accessing the /login endpoint");
 //    	User user = new User( 1111, "admin", "admin", "admin", "admin");
     	
     	log.debug("saving new: " + user);
