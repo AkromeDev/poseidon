@@ -1,12 +1,15 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.beans.factory.annotation.Required;
-
-import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import java.sql.Date;
 import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /***
  * 
@@ -21,7 +24,7 @@ public class BidList {
     
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer BidListId;
+	Integer bidListId;
 	
 	@Column(name = "account")
 	@NotBlank(message = "Account is mandatory")
@@ -32,7 +35,7 @@ public class BidList {
 	String type;
 	
 	@Column(name = "bidQuantity")
-	@NotBlank(message = "Bid quantity is mandatory")
+	@NotNull(message = "Bid quantity is mandatory")
 	Double bidQuantity;
 	
 	@Column(name = "askQuantity")
@@ -95,18 +98,25 @@ public class BidList {
 	 * @param type
 	 * @param bidQuantity
 	 */
-	public BidList(String account, String type, double bidQuantity) {
+	public BidList( @NotBlank(message = "Account is mandatory") String account,
+			@NotBlank(message = "Type is mandatory") String type,
+			@NotBlank(message = "Bid quantity is mandatory") Double bidQuantity) {
+		super();
 		this.account = account;
-		this.dealType = type;
+		this.type = type;
 		this.bidQuantity = bidQuantity;
+	}
+	
+	public BidList() {
+		super();
 	}
 
 	public Integer getBidListId() {
-		return BidListId;
+		return bidListId;
 	}
 
 	public void setBidListId(Integer bidListId) {
-		BidListId = bidListId;
+		this.bidListId = bidListId;
 	}
 
 	public String getAccount() {
@@ -279,7 +289,7 @@ public class BidList {
 
 	@Override
 	public String toString() {
-		return "BidList [BidListId=" + BidListId + ", account=" + account + ", type=" + type + ", bidQuantity="
+		return "BidList [bidListId=" + bidListId + ", account=" + account + ", type=" + type + ", bidQuantity="
 				+ bidQuantity + ", askQuantity=" + askQuantity + ", bid=" + bid + ", ask=" + ask + ", benchmark="
 				+ benchmark + ", bidListDate=" + bidListDate + ", commentary=" + commentary + ", security=" + security
 				+ ", status=" + status + ", trader=" + trader + ", book=" + book + ", creationName=" + creationName
