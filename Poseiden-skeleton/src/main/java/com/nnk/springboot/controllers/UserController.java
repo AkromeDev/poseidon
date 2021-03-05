@@ -44,16 +44,6 @@ public class UserController {
     	return user;
     }
     
-    @PostMapping("/login")
-    public User addInitialUser(@RequestBody User user) {
-    	
-    	log.debug("accessing the /login endpoint");
-//    	User user = new User( 1111, "admin", "admin", "admin", "admin");
-    	
-    	log.debug("saving new: " + user);
-        return userRepository.save(user);
-    }
-
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
         if (!result.hasErrors()) {

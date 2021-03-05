@@ -1,6 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,28 +16,41 @@ import javax.validation.Valid;
 
 @Controller
 public class RatingController {
+	
+	private static final Logger log = LoggerFactory.getLogger(RatingController.class);
     // TODO: Inject Rating service
 
     @RequestMapping("/rating/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
+    	
+    	log.info("accessing /rating/list endpoint with home method");
+    	
         // TODO: find all Rating, add to model
         return "rating/list";
     }
 
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
+    	
+    	log.info("accessing /rating/add endpoint with addRatingForm method");
+    	
         return "rating/add";
     }
 
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
+    	
+    	log.info("accessing /rating/validate endpoint with validate method");
+    	
         // TODO: check data valid and save to db, after saving return Rating list
         return "rating/add";
     }
 
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    	
+    	log.info("accessing /rating/update/{id} endpoint with showUpdateForm method");
+    	
         // TODO: get Rating by Id and to model then show to the form
         return "rating/update";
     }
@@ -42,12 +58,18 @@ public class RatingController {
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
+    	
+    	log.info("accessing /rating/update/{id} endpoint with updateRating method");
+    	
         // TODO: check required fields, if valid call service to update Rating and return Rating list
         return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
+    	
+    	log.info("accessing /rating/delete/{id} endpoint with deleteRating method");
+    	
         // TODO: Find Rating by Id and delete the Rating, return to Rating list
         return "redirect:/rating/list";
     }
