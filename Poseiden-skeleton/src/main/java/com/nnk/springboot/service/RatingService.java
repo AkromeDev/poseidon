@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nnk.springboot.controllers.BidListController;
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.repositories.RatingRepository;
 
 @Service
 public class RatingService {
@@ -17,16 +17,16 @@ public class RatingService {
 	private static final Logger log = LoggerFactory.getLogger(RatingService.class);
 
 	@Autowired
-	BidListRepository bidRepo;
+	RatingRepository RatingRepo;
 	
-	public BidList saveBid(BidList bid) {
-		log.info("SAVING..." + bid);
+	public Rating saveRating(Rating rating) {
+		log.info("SAVING..." + rating);
 		
-		return bidRepo.save(bid);
+		return RatingRepo.save(rating);
 	}
 
-	public List<BidList> findAll() {
-		return bidRepo.findAll();
+	public List<Rating> findAll() {
+		return RatingRepo.findAll();
 	}
 	
 }

@@ -7,9 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nnk.springboot.controllers.BidListController;
-import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.repositories.TradeRepository;
 
 @Service
 public class TradeService {
@@ -17,16 +16,16 @@ public class TradeService {
 	private static final Logger log = LoggerFactory.getLogger(TradeService.class);
 
 	@Autowired
-	BidListRepository bidRepo;
+	TradeRepository tradeRepo;
 	
-	public BidList saveBid(BidList bid) {
-		log.info("SAVING..." + bid);
+	public Trade saveBid(Trade trade) {
+		log.info("SAVING..." + trade);
 		
-		return bidRepo.save(bid);
+		return tradeRepo.save(trade);
 	}
 
-	public List<BidList> findAll() {
-		return bidRepo.findAll();
+	public List<Trade> findAll() {
+		return tradeRepo.findAll();
 	}
 	
 }

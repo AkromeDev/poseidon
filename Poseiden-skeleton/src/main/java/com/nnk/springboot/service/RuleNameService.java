@@ -7,9 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nnk.springboot.controllers.BidListController;
-import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.repositories.RuleNameRepository;
 
 @Service
 public class RuleNameService {
@@ -17,16 +16,16 @@ public class RuleNameService {
 	private static final Logger log = LoggerFactory.getLogger(RuleNameService.class);
 
 	@Autowired
-	BidListRepository bidRepo;
+	RuleNameRepository ruleRepo;
 	
-	public BidList saveBid(BidList bid) {
-		log.info("SAVING..." + bid);
+	public RuleName saveBid(RuleName rule) {
+		log.info("SAVING..." + rule);
 		
-		return bidRepo.save(bid);
+		return ruleRepo.save(rule);
 	}
 
-	public List<BidList> findAll() {
-		return bidRepo.findAll();
+	public List<RuleName> findAll() {
+		return ruleRepo.findAll();
 	}
 	
 }

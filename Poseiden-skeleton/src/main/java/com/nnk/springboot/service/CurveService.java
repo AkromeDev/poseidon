@@ -2,14 +2,15 @@ package com.nnk.springboot.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nnk.springboot.controllers.BidListController;
-import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.repositories.CurvePointRepository;
 
 @Service
 public class CurveService {
@@ -17,16 +18,16 @@ public class CurveService {
 	private static final Logger log = LoggerFactory.getLogger(CurveService.class);
 
 	@Autowired
-	BidListRepository bidRepo;
+	CurvePointRepository curveRepo;
 	
-	public BidList saveBid(BidList bid) {
-		log.info("SAVING..." + bid);
+	public @Valid CurvePoint saveCurve(@Valid CurvePoint curvePoint) {
+		log.info("SAVING..." + curvePoint);
 		
-		return bidRepo.save(bid);
+		return curveRepo.save(curvePoint);
 	}
 
-	public List<BidList> findAll() {
-		return bidRepo.findAll();
+	public List<CurvePoint> findAll() {
+		return curveRepo.findAll();
 	}
 	
 }
