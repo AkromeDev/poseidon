@@ -1,9 +1,10 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.Rating;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,20 +13,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.service.RatingService;
 
 @Controller
 public class RatingController {
 	
 	private static final Logger log = LoggerFactory.getLogger(RatingController.class);
-    // TODO: Inject Rating service
+    
+	@Autowired
+	RatingService ratingService;
 
     @RequestMapping("/rating/list")
     public String home(Model model) {
     	
     	log.info("accessing /rating/list endpoint with home method");
     	
-        // TODO: find all Rating, add to model
+    	model.addAttribute("bidList", ratingService.findAll());
         return "rating/list";
     }
 
@@ -42,7 +46,12 @@ public class RatingController {
     	
     	log.info("accessing /rating/validate endpoint with validate method");
     	
-        // TODO: check data valid and save to db, after saving return Rating list
+    	if (!result.hasErrors()) {
+    		ratingService.saveRating(rating);
+            model.addAttribute("bidList", ratingService.findAll());
+            return "redirect:/bidList/list";
+        }
+    	
         return "rating/add";
     }
 
