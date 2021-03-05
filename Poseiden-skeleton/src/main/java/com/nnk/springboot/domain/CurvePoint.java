@@ -1,11 +1,15 @@
 package com.nnk.springboot.domain;
 
-import org.hibernate.validator.constraints.Length;
+import java.sql.Timestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 
 /***
  * 
@@ -22,18 +26,18 @@ public class CurvePoint {
 	Integer id;
 	
 	@Column(name = "curveId")
-	@NotBlank(message = "Curve id is mandatory")
+	@NotNull(message = "Curve id is mandatory")
 	Integer curveId;
 	
 	@Column(name = "asOfDate")
 	Timestamp asOfDate;
 	
 	@Column(name = "term")
-	@NotBlank(message = "Term is mandatory")
+	@NotNull(message = "Term is mandatory")
 	Double term;
 	
 	@Column(name = "value")
-	@NotBlank(message = "Value is mandatory")
+	@NotNull(message = "Value is mandatory")
 	Double value;
 	
 	@Column(name = "creationDate")
