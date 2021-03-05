@@ -48,8 +48,8 @@ public class RatingController {
     	
     	if (!result.hasErrors()) {
     		ratingService.saveRating(rating);
-            model.addAttribute("bidList", ratingService.findAll());
-            return "redirect:/bidList/list";
+            model.addAttribute("rating", ratingService.findAll());
+            return "redirect:/rating/list";
         }
     	
         return "rating/add";

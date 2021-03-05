@@ -48,8 +48,8 @@ public class TradeController {
     	
     	if (!result.hasErrors()) {
     		tradeService.saveBid(trade);
-            model.addAttribute("bidList", tradeService.findAll());
-            return "redirect:/bidList/list";
+            model.addAttribute("trade", tradeService.findAll());
+            return "redirect:/trade/list";
         }
     	
         return "trade/add";

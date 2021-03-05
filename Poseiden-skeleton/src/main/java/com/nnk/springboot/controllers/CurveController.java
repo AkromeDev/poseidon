@@ -48,8 +48,8 @@ public class CurveController {
     	
         if (!result.hasErrors()) {
         	curveService.saveCurve(curvePoint);
-            model.addAttribute("bidList", curveService.findAll());
-            return "redirect:/bidList/list";
+            model.addAttribute("curvePoint", curveService.findAll());
+            return "redirect:/curvePoint/list";
         }
         return "curvePoint/add";
     }

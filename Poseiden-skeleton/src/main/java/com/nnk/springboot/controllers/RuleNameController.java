@@ -49,8 +49,8 @@ public class RuleNameController {
     	
     	if (!result.hasErrors()) {
     		ruleService.saveBid(ruleName);
-            model.addAttribute("bidList", ruleService.findAll());
-            return "redirect:/bidList/list";
+            model.addAttribute("ruleName", ruleService.findAll());
+            return "redirect:/ruleName/list";
         }
     	
         return "ruleName/add";
