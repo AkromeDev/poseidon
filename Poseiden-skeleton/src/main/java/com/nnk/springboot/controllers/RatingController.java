@@ -29,7 +29,7 @@ public class RatingController {
     	
     	log.info("accessing /rating/list endpoint with home method");
     	
-    	model.addAttribute("bidList", ratingService.findAll());
+    	model.addAttribute("rating", ratingService.findAll());
         return "rating/list";
     }
 

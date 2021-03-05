@@ -29,7 +29,7 @@ public class RuleNameController {
     	
     	log.info("accessing /ruleName/list endpoint with home method");
     	
-    	model.addAttribute("bidList", ruleService.findAll());
+    	model.addAttribute("ruleName", ruleService.findAll());
     	
         return "ruleName/list";
     }

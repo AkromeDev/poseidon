@@ -28,7 +28,7 @@ public class CurveController {
     public String home(Model model) {
     	
     	log.info("accessing /curvePoint/list endpoint with home method");
-    	model.addAttribute("bidList", curveService.findAll());
+    	model.addAttribute("curvePoint", curveService.findAll());
         // TODO: find all Curve Point, add to model
         return "curvePoint/list";
     }

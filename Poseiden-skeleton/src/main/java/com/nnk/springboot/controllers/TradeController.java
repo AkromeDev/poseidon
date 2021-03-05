@@ -29,7 +29,7 @@ public class TradeController {
     	
     	log.info("accessing /trade/list endpoint with home method");
     	
-    	model.addAttribute("bidList", tradeService.findAll());
+    	model.addAttribute("trade", tradeService.findAll());
         return "trade/list";
     }
 
