@@ -89,6 +89,10 @@ public class Trade {
 		this.type = type;
 	}
 
+	public Trade() {
+		super();
+	}
+
 	public Integer getTradeId() {
 		return tradeId;
 	}

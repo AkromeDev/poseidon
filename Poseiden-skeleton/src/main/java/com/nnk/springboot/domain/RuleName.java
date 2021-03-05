@@ -55,6 +55,10 @@ public class RuleName {
 		this.sqlPart = sqlPart;
 	}
 
+	public RuleName() {
+		super();
+	}
+
 	public Integer getId() {
 		return id;
 	}

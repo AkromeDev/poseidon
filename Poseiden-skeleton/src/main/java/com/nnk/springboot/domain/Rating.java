@@ -44,6 +44,10 @@ public class Rating {
 		this.fitchRating = fitchRating;
 		this.orderNumber = orderNumber;
 	}
+	
+	public Rating() {
+		super();
+	}
 
 	public Integer getId() {
 		return id;
