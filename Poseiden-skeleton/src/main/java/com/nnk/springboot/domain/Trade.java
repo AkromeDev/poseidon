@@ -5,8 +5,9 @@ import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 /***
- * POJO class Trade
+ * 
  * @author j.c.
+ *POJO class Trade
  *
  */
 @Entity
@@ -15,7 +16,7 @@ public class Trade {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer tradeId;
+	Integer id;
 	
 	@Column(name = "account")
 	@NotBlank(message = "Account id is mandatory")
@@ -93,12 +94,12 @@ public class Trade {
 		super();
 	}
 
-	public Integer getTradeId() {
-		return tradeId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setTradeId(Integer tradeId) {
-		this.tradeId = tradeId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getAccount() {
@@ -263,7 +264,7 @@ public class Trade {
 
 	@Override
 	public String toString() {
-		return "Trade [tradeId=" + tradeId + ", account=" + account + ", type=" + type + ", buyQuantity=" + buyQuantity
+		return "Trade [tradeId=" + id + ", account=" + account + ", type=" + type + ", buyQuantity=" + buyQuantity
 				+ ", sellQuantity=" + sellQuantity + ", buyPrice=" + buyPrice + ", sellPrice=" + sellPrice
 				+ ", benchmark=" + benchmark + ", tradeDate=" + tradeDate + ", security=" + security + ", status="
 				+ status + ", trader=" + trader + ", book=" + book + ", creationName=" + creationName
