@@ -28,7 +28,6 @@ public class TradeController {
     public String home(Model model) {
     	
     	log.info("accessing /trade/list endpoint with home method");
-    	
     	model.addAttribute("trade", tradeService.findAll());
         return "trade/list";
     }
