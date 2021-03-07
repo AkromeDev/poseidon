@@ -29,7 +29,6 @@ public class CurveController {
     	
     	log.info("accessing /curvePoint/list endpoint with home method");
     	model.addAttribute("curvePoint", curveService.findAll());
-        // TODO: find all Curve Point, add to model
         return "curvePoint/list";
     }
 
