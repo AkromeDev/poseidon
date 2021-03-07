@@ -38,7 +38,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="trade : ${trade}"></tr>
+				<tr th:each="trade : ${trade}">
 					<td style="width: 10%" th:text="${trade.id}"></td>
 					<td th:text="${trade.account}"></td>
 					<td th:text="${trade.type}"></td>
@@ -47,6 +47,7 @@
 						<a th:href="@{/trade/update/{id}(id=${trade.id})}">Edit</a>&nbsp;|&nbsp;
 						<a th:href="@{/trade/delete/{id}(id=${trade.id})}">Delete</a>
 					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
