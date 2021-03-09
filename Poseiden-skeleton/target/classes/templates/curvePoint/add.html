@@ -25,15 +25,15 @@
 			<div class="form-group">
 				<label for="term" class="col-sm-2 control-label">Term</label>
 				<div class="col-sm-10">
-					<input type="text" th:field="*{term}" id="term" placeholder="Term" class="col-4">
+					<input type="number" th:field="*{term}" id="term" placeholder="Term" class="col-4">
 					<p class="text-danger" th:if="${#fields.hasErrors('term')}" th:errors="*{term}"></p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="curvePoint" class="col-sm-2 control-label">Curve Point</label>
+				<label for="value" class="col-sm-2 control-label">Value</label>
 				<div class="col-sm-10">
-					<input type="number" th:field="*{curvePoint}" id="curvePoint" placeholder="Curve Point" class="col-4">
-					<p class="text-danger" th:if="${#fields.hasErrors('curvePoint')}" th:errors="*{curvePoint}"></p>
+					<input type="number" th:field="*{value}" id="value" placeholder="Curve Point" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></p>
 				</div>
 			</div>
 
