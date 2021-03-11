@@ -18,21 +18,26 @@ public class RatingService {
 	private static final Logger log = LoggerFactory.getLogger(RatingService.class);
 
 	@Autowired
-	RatingRepository RatingRepo;
+	RatingRepository ratingRepo;
 	
 	public Rating saveRating(Rating rating) {
 		log.info("SAVING..." + rating);
 		
-		return RatingRepo.save(rating);
+		return ratingRepo.save(rating);
 	}
 
 	public List<Rating> findAll() {
-		return RatingRepo.findAll();
+		return ratingRepo.findAll();
 	}
 
 	public Optional<Rating> findById(Integer id) {
 	
-		return RatingRepo.findById(id);
+		return ratingRepo.findById(id);
+	}
+
+	public void delete(Rating rating) {
+		
+		ratingRepo.delete(rating);
 	}
 	
 }

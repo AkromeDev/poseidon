@@ -34,5 +34,10 @@ public class BidListService {
 		
 		return bidRepo.findById(id);
 	}
+
+	public void delete(BidList bidList) {
+		
+		bidRepo.delete(bidList);
+	}
 	
 }

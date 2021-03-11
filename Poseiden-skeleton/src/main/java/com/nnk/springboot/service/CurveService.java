@@ -35,5 +35,10 @@ public class CurveService {
 		
 		return curveRepo.findById(id);
 	}
+
+	public void delete(CurvePoint curvePoint) {
+		
+		curveRepo.delete(curvePoint);
+	}
 	
 }

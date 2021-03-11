@@ -32,5 +32,10 @@ public class RuleNameService {
 	public Optional<RuleName> findById(Integer id) {
 		return ruleRepo.findById(id);
 	}
+
+	public void delete(RuleName ruleName) {
+		
+		ruleRepo.delete(ruleName);
+	}
 	
 }

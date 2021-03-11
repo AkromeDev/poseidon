@@ -32,5 +32,10 @@ public class TradeService {
 	public Optional<Trade> findById(Integer id) {
 		return tradeRepo.findById(id);
 	}
+
+	public void delete(Trade trade) {
+		
+		tradeRepo.delete(trade);
+	}
 	
 }
