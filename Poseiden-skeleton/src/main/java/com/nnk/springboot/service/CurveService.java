@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -28,6 +29,11 @@ public class CurveService {
 
 	public List<CurvePoint> findAll() {
 		return curveRepo.findAll();
+	}
+
+	public Optional<CurvePoint> findById(Integer id) {
+		
+		return curveRepo.findById(id);
 	}
 	
 }

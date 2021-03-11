@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,11 @@ public class BidListService {
 
 	public List<BidList> findAll() {
 		return bidRepo.findAll();
+	}
+
+	public Optional<BidList> findById(Integer id) {
+		
+		return bidRepo.findById(id);
 	}
 	
 }

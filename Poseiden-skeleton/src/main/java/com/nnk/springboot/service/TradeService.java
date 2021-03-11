@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,7 @@ public class TradeService {
 	@Autowired
 	TradeRepository tradeRepo;
 	
-	public Trade saveBid(Trade trade) {
+	public Trade saveTrade(Trade trade) {
 		log.info("SAVING..." + trade);
 		
 		return tradeRepo.save(trade);
@@ -26,6 +27,10 @@ public class TradeService {
 
 	public List<Trade> findAll() {
 		return tradeRepo.findAll();
+	}
+
+	public Optional<Trade> findById(Integer id) {
+		return tradeRepo.findById(id);
 	}
 	
 }

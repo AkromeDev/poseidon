@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,7 @@ public class RuleNameService {
 	@Autowired
 	RuleNameRepository ruleRepo;
 	
-	public RuleName saveBid(RuleName rule) {
+	public RuleName saveRule(RuleName rule) {
 		log.info("SAVING..." + rule);
 		
 		return ruleRepo.save(rule);
@@ -26,6 +27,10 @@ public class RuleNameService {
 
 	public List<RuleName> findAll() {
 		return ruleRepo.findAll();
+	}
+
+	public Optional<RuleName> findById(Integer id) {
+		return ruleRepo.findById(id);
 	}
 	
 }
