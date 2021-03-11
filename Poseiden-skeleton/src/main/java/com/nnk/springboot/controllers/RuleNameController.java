@@ -61,7 +61,7 @@ public class RuleNameController {
     	
     	log.info("accessing /ruleName/update/{id} endpoint with showUpdateForm method");
     	
-    	RuleName ruleName = ruleService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    	RuleName ruleName = ruleService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid ruleName Id:" + id));
         model.addAttribute("ruleName", ruleName);
         
         return "ruleName/update";
@@ -79,7 +79,7 @@ public class RuleNameController {
 
     	ruleName.setId(id);
     	ruleService.saveRule(ruleName);
-        model.addAttribute("users", ruleService.findAll());
+        model.addAttribute("ruleName", ruleService.findAll());
         
         return "redirect:/ruleName/list";
     }
@@ -89,7 +89,10 @@ public class RuleNameController {
     	
     	log.info("accessing /ruleName/delete/{id} endpoint with deleteRuleName method");
     	
-        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
+    	RuleName ruleName = ruleService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid ruleName Id:" + id));
+    	ruleService.delete(ruleName);
+        model.addAttribute("ruleName", ruleService.findAll());
+        
         return "redirect:/ruleName/list";
     }
 }

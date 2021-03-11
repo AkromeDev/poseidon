@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.service.CurveService;
 
@@ -58,7 +59,7 @@ public class CurveController {
     	
     	log.info("accessing /curvePoint/update/{id} endpoint with showUpdateForm method");
     	
-    	CurvePoint curvePoint = curveService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    	CurvePoint curvePoint = curveService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
         model.addAttribute("curvePoint", curvePoint);
     	
         return "curvePoint/update";
@@ -77,7 +78,7 @@ public class CurveController {
 
     	curvePoint.setId(id);
         curveService.saveCurve(curvePoint);
-        model.addAttribute("users", curveService.findAll());
+        model.addAttribute("curvePoint", curveService.findAll());
     	
         return "redirect:/curvePoint/list";
     }
@@ -86,8 +87,11 @@ public class CurveController {
     public String deleteCurve(@PathVariable("id") Integer id, Model model) {
     	
     	log.info("accessing /curvePoint/delete/{id} endpoint with deleteCurve method");
-    	
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
+
+    	CurvePoint curvePoint = curveService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
+    	curveService.delete(curvePoint);
+        model.addAttribute("curvePoint", curveService.findAll());
+        
         return "redirect:/curvePoint/list";
     }
 }

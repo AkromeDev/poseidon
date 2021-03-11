@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.service.RatingService;
 
@@ -60,7 +61,7 @@ public class RatingController {
     	
     	log.info("accessing /rating/update/{id} endpoint with showUpdateForm method");
     	
-    	Rating rating = ratingService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    	Rating rating = ratingService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
         model.addAttribute("rating", rating);
         
         return "rating/update";
@@ -78,7 +79,7 @@ public class RatingController {
 
     	rating.setId(id);;
         ratingService.saveRating(rating);
-        model.addAttribute("users", ratingService.findAll());
+        model.addAttribute("rating", ratingService.findAll());
     	
         return "redirect:/rating/list";
     }
@@ -88,7 +89,10 @@ public class RatingController {
     	
     	log.info("accessing /rating/delete/{id} endpoint with deleteRating method");
     	
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
+    	Rating rating = ratingService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
+    	ratingService.delete(rating);
+        model.addAttribute("rating", ratingService.findAll());
+        
         return "redirect:/rating/list";
     }
 }

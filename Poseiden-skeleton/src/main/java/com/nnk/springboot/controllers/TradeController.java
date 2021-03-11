@@ -35,7 +35,7 @@ public class TradeController {
     @GetMapping("/trade/add")
     public String addTrade(Trade trade) {
     	
-    	log.info("accessing /trade/add endpoint with addUser method");
+    	log.info("accessing /trade/add endpoint with addTrade method");
     	
         return "trade/add";
     }
@@ -59,7 +59,7 @@ public class TradeController {
     	
     	log.info("accessing /trade/update/{id} endpoint with showUpdateForm method");
     	
-    	Trade trade = tradeService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    	Trade trade = tradeService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
         model.addAttribute("trade", trade);
         
         return "trade/update";
@@ -77,7 +77,7 @@ public class TradeController {
 
     	trade.setId(id);
     	tradeService.saveTrade(trade);
-        model.addAttribute("users", tradeService.findAll());
+        model.addAttribute("trade", tradeService.findAll());
         
         return "redirect:/trade/list";
     }
@@ -87,7 +87,10 @@ public class TradeController {
     	
     	log.info("accessing /trade/delete/{id} endpoint with deleteTrade method");
     	
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
+    	Trade trade = tradeService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
+    	tradeService.delete(trade);
+        model.addAttribute("trade", tradeService.findAll());
+        
         return "redirect:/trade/list";
     }
 }
