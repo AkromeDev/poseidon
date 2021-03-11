@@ -33,9 +33,9 @@ public class CurveController {
     }
 
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePoint bid) {
+    public String addCurveForm(CurvePoint curve) {
     	
-    	log.info("accessing /curvePoint/add endpoint with addBidForm method");
+    	log.info("accessing /curvePoint/add endpoint with addCurveForm method");
     	
         return "curvePoint/add";
     }
@@ -58,24 +58,34 @@ public class CurveController {
     	
     	log.info("accessing /curvePoint/update/{id} endpoint with showUpdateForm method");
     	
-        // TODO: get CurvePoint by Id and to model then show to the form
+    	CurvePoint curvePoint = curveService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("curvePoint", curvePoint);
+    	
         return "curvePoint/update";
+        
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
+    public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
     	
-    	log.info("accessing /curvePoint/update/{id} endpoint with updateBid method");
+    	log.info("accessing /curvePoint/update/{id} endpoint with updateCurvePoint method");
     	
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
+    	if (result.hasErrors()) {
+            return "curvePoint/update";
+        }
+
+    	curvePoint.setId(id);
+        curveService.saveCurve(curvePoint);
+        model.addAttribute("users", curveService.findAll());
+    	
         return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    public String deleteCurve(@PathVariable("id") Integer id, Model model) {
     	
-    	log.info("accessing /curvePoint/delete/{id} endpoint with deleteBid method");
+    	log.info("accessing /curvePoint/delete/{id} endpoint with deleteCurve method");
     	
         // TODO: Find Curve by Id and delete the Curve, return to Curve list
         return "redirect:/curvePoint/list";

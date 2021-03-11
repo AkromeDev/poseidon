@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -70,9 +69,10 @@ public class BidListController {
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
-    	
     	log.info("accessing /bidList/update/{id} endpoint with showUpdateForm method");
+    	
+    	BidList bidList = bidListService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("bidList", bidList);
     	
         return "bidList/update";
     }
@@ -80,9 +80,16 @@ public class BidListController {
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
     	
     	log.info("accessing /bidList/update/{id} endpoint with updateBid method");
+    	
+    	if (result.hasErrors()) {
+            return "bidList/update";
+        }
+
+    	bidList.setBidListId(id);
+        bidListService.saveBid(bidList);
+        model.addAttribute("users", bidListService.findAll());
     	
         return "redirect:/bidList/list";
     }

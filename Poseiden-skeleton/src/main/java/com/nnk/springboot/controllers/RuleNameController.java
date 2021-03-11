@@ -35,7 +35,7 @@ public class RuleNameController {
     }
 
     @GetMapping("/ruleName/add")
-    public String addRuleForm(RuleName bid) {
+    public String addRuleForm(RuleName rule) {
     	
     	log.info("accessing /ruleName/add endpoint with addRuleForm method");
     	
@@ -48,7 +48,7 @@ public class RuleNameController {
     	log.info("accessing /ruleName/validate endpoint with validate method");
     	
     	if (!result.hasErrors()) {
-    		ruleService.saveBid(ruleName);
+    		ruleService.saveRule(ruleName);
             model.addAttribute("ruleName", ruleService.findAll());
             return "redirect:/ruleName/list";
         }
@@ -61,7 +61,9 @@ public class RuleNameController {
     	
     	log.info("accessing /ruleName/update/{id} endpoint with showUpdateForm method");
     	
-        // TODO: get RuleName by Id and to model then show to the form
+    	RuleName ruleName = ruleService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("ruleName", ruleName);
+        
         return "ruleName/update";
     }
 
@@ -71,7 +73,14 @@ public class RuleNameController {
     	
     	log.info("accessing /ruleName/update/{id} endpoint with updateRuleName method");
     	
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
+    	if (result.hasErrors()) {
+            return "ruleName/update";
+        }
+
+    	ruleName.setId(id);
+    	ruleService.saveRule(ruleName);
+        model.addAttribute("users", ruleService.findAll());
+        
         return "redirect:/ruleName/list";
     }
 

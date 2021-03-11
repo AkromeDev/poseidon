@@ -60,7 +60,9 @@ public class RatingController {
     	
     	log.info("accessing /rating/update/{id} endpoint with showUpdateForm method");
     	
-        // TODO: get Rating by Id and to model then show to the form
+    	Rating rating = ratingService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("rating", rating);
+        
         return "rating/update";
     }
 
@@ -70,7 +72,14 @@ public class RatingController {
     	
     	log.info("accessing /rating/update/{id} endpoint with updateRating method");
     	
-        // TODO: check required fields, if valid call service to update Rating and return Rating list
+    	if (result.hasErrors()) {
+            return "rating/update";
+        }
+
+    	rating.setId(id);;
+        ratingService.saveRating(rating);
+        model.addAttribute("users", ratingService.findAll());
+    	
         return "redirect:/rating/list";
     }
 
