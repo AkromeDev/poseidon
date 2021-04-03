@@ -100,7 +100,7 @@ class BidControllerTest {
 //	}
 	
 	@Test
-	@DisplayName("Asserts that the bids are retrieved by the home method")
+	@DisplayName("Asserts that the /bidList/list page is displayed correctly")
 	public void homeTest() throws Exception {
 		
 		listOfBid.add(bid);
@@ -108,21 +108,56 @@ class BidControllerTest {
 		when(bidListService.findAll()).thenReturn(Arrays.asList(bid));
         mockMvc.perform(get("/bidList/list"))
         // TODO Resolve hamcrest problem. The jar is not at the right place, it should be above junit.
-//		        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		        .andExpect(jsonPath("$", hasSize(2)))
-//                .andExpect(model().attribute("bidList", hasSize(1)))
+		        .andExpect(content().string(containsString("Id")))
+		        .andExpect(content().string(containsString("Account")))
+		        .andExpect(content().string(containsString("Type")))
+		        .andExpect(content().string(containsString("Bid Quantity")))
+		        .andExpect(content().string(containsString("Action")))
+//		        .andExpect(jsonPath("$", hasSize(2)))
+//              .andExpect(model().attribute("bidList", hasSize(1)))
 //        		.andExpect(model().attribute("bidList", hasItem(bid)))
-//                .andExpect(model().attribute("bidList", 
+//              .andExpect(model().attribute("bidList", 
 //                		hasProperty(("account"), is("account"))))
                 .andExpect(status().isOk());
 	}
 	
+	@Test
+	@DisplayName("Asserts that the /bidList/add page is displayed correctly")
+	public void addBidListTest() throws Exception {
+		
+		
+        mockMvc.perform(get("/bidList/add"))
+		        .andExpect(content().string(containsString("Add New Bid")))
+                .andExpect(status().isOk());
+	}
 	
     @Test
     @DisplayName("Asserts that a bid has been saved")
     void saveBidListTest() throws Exception {
         when(bidContro.saveBidList(any(BidList.class))).thenReturn(bid);
         mockMvc.perform(MockMvcRequestBuilders.post("/bidList/add")
+                .content(new ObjectMapper().writeValueAsString(bid))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+    
+    @Test
+    @DisplayName("Asserts that a bid is validated when correct")
+    void validateTrueBidListTest() throws Exception {
+        when(bidContro.saveBidList(any(BidList.class))).thenReturn(bid);
+        mockMvc.perform(MockMvcRequestBuilders.post("/bidList/validate")
+                .content(new ObjectMapper().writeValueAsString(bid))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+    
+    @Test
+    @DisplayName("Asserts that a bid is NOT validated when false")
+    void validateFalseBidListTest() throws Exception {
+        when(bidContro.saveBidList(any(BidList.class))).thenReturn(bid);
+        mockMvc.perform(MockMvcRequestBuilders.post("/bidList/validate")
                 .content(new ObjectMapper().writeValueAsString(bid))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
