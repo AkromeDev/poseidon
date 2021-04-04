@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.service.BidListService;
@@ -33,8 +33,8 @@ public class BidListController {
 	 * @param model
 	 * @return a List containing all BidLists
 	 */
-    @RequestMapping("/bidList/list")
-    public String Home(Model model) {
+	@GetMapping("/bidList/list")
+    public String home(Model model) {
     	
     	log.info("accessing /bidList/list endpoint with home method");
     	model.addAttribute("bidList", bidListService.findAll());
@@ -47,7 +47,7 @@ public class BidListController {
         return "bidList/add";
     }
     
-    @PostMapping("bidList/add")
+    @PostMapping("/bidList/add")
     public BidList saveBidList(@RequestBody BidList bid) {
     	log.info("accessing /bidList/add endpoint with saveBidList method");
     	return bidListService.saveBid(bid);
