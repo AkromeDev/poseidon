@@ -1,7 +1,14 @@
 package com.nnk.springboot.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.nnk.springboot.validation.ValidPassword;
 
 @Entity
 @Table(name = "users")
@@ -14,7 +21,7 @@ public class User {
     @NotBlank(message = "Username is mandatory")
     private String username;
     
-    @NotBlank(message = "Password is mandatory")
+    @ValidPassword
     private String password;
     
     @NotBlank(message = "FullName is mandatory")
