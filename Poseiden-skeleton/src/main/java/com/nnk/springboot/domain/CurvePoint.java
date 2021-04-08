@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -27,6 +28,7 @@ public class CurvePoint {
 	
 	@Column(name = "curveId")
 	@NotNull(message = "Curve id is mandatory")
+	@Min(1)
 	Integer curveId;
 	
 	@Column(name = "asOfDate")
@@ -34,10 +36,12 @@ public class CurvePoint {
 	
 	@Column(name = "term")
 	@NotNull(message = "Term is mandatory")
+	@Min(1)
 	Double term;
 	
 	@Column(name = "value")
 	@NotNull(message = "Value is mandatory")
+	@Min(1)
 	Double value;
 	
 	@Column(name = "creationDate")
