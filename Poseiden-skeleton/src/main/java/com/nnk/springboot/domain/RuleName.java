@@ -23,18 +23,23 @@ public class RuleName {
 	String name;
 	
 	@Column(name = "description")
+	@NotBlank(message = "Name id is mandatory")
 	String description;
 	
 	@Column(name = "json")
+	@NotBlank(message = "Name id is mandatory")
 	String json;
 	
 	@Column(name = "template")
+	@NotBlank(message = "Name id is mandatory")
 	String template;
 	
 	@Column(name = "sqlStr")
+	@NotBlank(message = "Name id is mandatory")
 	String sqlStr;
 	
 	@Column(name = "sqlPart")
+	@NotBlank(message = "Name id is mandatory")
 	String sqlPart;
 
 	/***
