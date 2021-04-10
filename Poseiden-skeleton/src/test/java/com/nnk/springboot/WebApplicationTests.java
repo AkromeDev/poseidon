@@ -64,7 +64,7 @@ public class WebApplicationTests {
 	}
 	
 	@Test
-	@DisplayName("Tests if RatingController loads correctly")
+	@DisplayName("Tests if RatingControllerTest loads correctly")
 	public void ratingControLoad() throws Exception {
 		assertThat(ratingContro).isNotNull();
 	}
