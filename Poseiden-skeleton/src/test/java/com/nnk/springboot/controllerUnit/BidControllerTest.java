@@ -1,23 +1,14 @@
-package com.nnk.springboot.controller;
+package com.nnk.springboot.controllerUnit;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
-import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,17 +27,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nnk.springboot.Application;
 import com.nnk.springboot.config.EntityTestData;
 import com.nnk.springboot.controllers.BidListController;
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.repositories.BidListRepository;
 import com.nnk.springboot.service.BidListService;
 
 @ExtendWith(SpringExtension.class)
@@ -63,6 +53,9 @@ class BidControllerTest {
 
 	@MockBean
 	private BidListService bidListService;
+	
+	@MockBean
+	private BidListRepository bidRepo;
 	
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -93,38 +86,28 @@ class BidControllerTest {
 	    bid = data.setBid();
 	}
 
-//	@Test
-//	public void bidListLoad() throws Exception {
-//		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/bidList/list",
-//				String.class)).contains("Bid List");
-//	}
-	
 	@Test
 	@DisplayName("Asserts that the /bidList/list page is displayed correctly")
 	public void homeTest() throws Exception {
 		
 		listOfBid.add(bid);
 		
-		when(bidListService.findAll()).thenReturn(Arrays.asList(bid));
+		when(bidListService.findAll()).thenReturn(listOfBid);
+		
         mockMvc.perform(get("/bidList/list"))
-        // TODO Resolve hamcrest problem. The jar is not at the right place, it should be above junit.
+        		.andExpect(MockMvcResultMatchers.view().name("bidList/list"))
 		        .andExpect(content().string(containsString("Id")))
 		        .andExpect(content().string(containsString("Account")))
 		        .andExpect(content().string(containsString("Type")))
 		        .andExpect(content().string(containsString("Bid Quantity")))
 		        .andExpect(content().string(containsString("Action")))
-//		        .andExpect(jsonPath("$", hasSize(2)))
-//              .andExpect(model().attribute("bidList", hasSize(1)))
-//        		.andExpect(model().attribute("bidList", hasItem(bid)))
-//              .andExpect(model().attribute("bidList", 
-//                		hasProperty(("account"), is("account"))))
                 .andExpect(status().isOk());
+        
 	}
 	
 	@Test
 	@DisplayName("Asserts that the /bidList/add page is displayed correctly")
 	public void addBidListTest() throws Exception {
-		
 		
         mockMvc.perform(get("/bidList/add"))
 		        .andExpect(content().string(containsString("Add New Bid")))
@@ -132,36 +115,14 @@ class BidControllerTest {
 	}
 	
     @Test
-    @DisplayName("Asserts that a bid has been saved")
+    @DisplayName("Asserts that saveBidListTest is called correctly")
     void saveBidListTest() throws Exception {
-        when(bidContro.saveBidList(any(BidList.class))).thenReturn(bid);
+    	
         mockMvc.perform(MockMvcRequestBuilders.post("/bidList/add")
                 .content(new ObjectMapper().writeValueAsString(bid))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+        
     }
-    
-    @Test
-    @DisplayName("Asserts that a bid is validated when correct")
-    void validateTrueBidListTest() throws Exception {
-        when(bidContro.saveBidList(any(BidList.class))).thenReturn(bid);
-        mockMvc.perform(MockMvcRequestBuilders.post("/bidList/validate")
-                .content(new ObjectMapper().writeValueAsString(bid))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
-    
-    @Test
-    @DisplayName("Asserts that a bid is NOT validated when false")
-    void validateFalseBidListTest() throws Exception {
-        when(bidContro.saveBidList(any(BidList.class))).thenReturn(bid);
-        mockMvc.perform(MockMvcRequestBuilders.post("/bidList/validate")
-                .content(new ObjectMapper().writeValueAsString(bid))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
-	
 }
