@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.RuleName;
@@ -43,7 +44,7 @@ public class RuleNameController {
     }
 
     @PostMapping("/ruleName/validate")
-    public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
+    public String validate(@RequestBody @Valid RuleName ruleName, BindingResult result, Model model) {
     	
     	log.info("accessing /ruleName/validate endpoint with validate method");
     	
@@ -68,7 +69,7 @@ public class RuleNameController {
     }
 
     @PostMapping("/ruleName/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
+    public String updateRuleName(@PathVariable("id") Integer id, @RequestBody @Valid RuleName ruleName,
                              BindingResult result, Model model) {
     	
     	log.info("accessing /ruleName/update/{id} endpoint with updateRuleName method");

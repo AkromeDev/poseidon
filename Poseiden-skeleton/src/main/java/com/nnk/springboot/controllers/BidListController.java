@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.service.BidListService;
 
-
-	
 @Controller
 public class BidListController {
 	
@@ -43,19 +40,20 @@ public class BidListController {
 
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bid) {
+    	
     	log.info("accessing /bidList/add endpoint with addBidForm method");
         return "bidList/add";
     }
     
     @PostMapping("/bidList/add")
     public BidList saveBidList(@RequestBody BidList bid) {
+    	
     	log.info("accessing /bidList/add endpoint with saveBidList method");
     	return bidListService.saveBid(bid);
     }
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return bid list
     	
     	log.info("accessing /bidList/validate endpoint with validate method" + bid);
     	
@@ -69,6 +67,7 @@ public class BidListController {
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    	
     	log.info("accessing /bidList/update/{id} endpoint with showUpdateForm method");
     	
     	BidList bidList = bidListService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bidList Id:" + id));
@@ -78,7 +77,7 @@ public class BidListController {
     }
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
+    public String updateBid(@PathVariable("id") Integer id, @Valid @RequestBody BidList bidList,
                              BindingResult result, Model model) {
     	
     	log.info("accessing /bidList/update/{id} endpoint with updateBid method");
@@ -96,6 +95,7 @@ public class BidListController {
 
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    	
     	log.info("accessing /bidList/delete/{id} endpoint with deleteBid method");
     	
     	BidList bidList = bidListService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bidList Id:" + id));

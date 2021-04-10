@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.User;
@@ -44,7 +45,7 @@ public class UserController {
     }
     
     @PostMapping("/user/validate")
-    public String validate(@Valid User user, BindingResult result, Model model) {
+    public String validate(@RequestBody @Valid User user, BindingResult result, Model model) {
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
@@ -64,7 +65,7 @@ public class UserController {
     }
 
     @PostMapping("/user/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid User user,
+    public String updateUser(@PathVariable("id") Integer id, @RequestBody @Valid User user,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "user/update";

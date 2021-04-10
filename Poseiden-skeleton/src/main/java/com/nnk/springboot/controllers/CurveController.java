@@ -11,9 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.service.CurveService;
 
@@ -42,7 +42,7 @@ public class CurveController {
     }
 
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
+    public String validate(@RequestBody @Valid CurvePoint curvePoint, BindingResult result, Model model) {
     	
     	log.info("accessing /curvePoint/validate endpoint with validate method");
     	
@@ -67,7 +67,7 @@ public class CurveController {
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
+    public String updateCurvePoint(@PathVariable("id") Integer id, @RequestBody @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
     	
     	log.info("accessing /curvePoint/update/{id} endpoint with updateCurvePoint method");

@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.Trade;
@@ -41,7 +42,7 @@ public class TradeController {
     }
 
     @PostMapping("/trade/validate")
-    public String validate(@Valid Trade trade, BindingResult result, Model model) {
+    public String validate(@RequestBody @Valid Trade trade, BindingResult result, Model model) {
     	
     	log.info("accessing /trade/validate endpoint with validate method");
     	
@@ -66,7 +67,7 @@ public class TradeController {
     }
 
     @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
+    public String updateTrade(@PathVariable("id") Integer id, @RequestBody @Valid Trade trade,
                              BindingResult result, Model model) {
     	
     	log.info("accessing /trade/update/{id} endpoint with updateTrade method");
