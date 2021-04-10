@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
@@ -27,15 +28,19 @@ public class Trade {
 	String type;
 	
 	@Column(name = "buyQuantity")
+	@Min(1)
 	Double buyQuantity;
 	
 	@Column(name = "sellQuantity")
+	@Min(1)
 	Double sellQuantity;
 	
 	@Column(name = "buyPrice")
+	@Min(1)
 	Double buyPrice;
 	
 	@Column(name = "sellPrice")
+	@Min(1)
 	Double sellPrice;
 	
 	@Column(name = "benchmark")

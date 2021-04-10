@@ -51,7 +51,6 @@ public class TradeController {
             model.addAttribute("trade", tradeService.findAll());
             return "redirect:/trade/list";
         }
-    	
         return "trade/add";
     }
 
