@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -36,15 +37,19 @@ public class BidList {
 	
 	@Column(name = "bidQuantity")
 	@NotNull(message = "Bid quantity is mandatory")
+	@Min(1)
 	Double bidQuantity;
 	
 	@Column(name = "askQuantity")
+	@Min(1)
 	Double askQuantity;
 	
 	@Column(name = "bid")
+	@Min(1)
 	Double bid;
 	
 	@Column(name = "ask")
+	@Min(1)
 	Double ask;
 	
 	@Column(name = "benchmark")
