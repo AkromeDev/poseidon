@@ -25,6 +25,11 @@ public class CurveController {
 	@Autowired
 	CurveService curveService;
 
+	/***
+	 * 
+	 * @param model
+	 * @return to the page "list" with all the existing object for this entity
+	 */
     @RequestMapping("/curvePoint/list")
     public String home(Model model) {
     	
@@ -33,6 +38,11 @@ public class CurveController {
         return "curvePoint/list";
     }
 
+    /***
+	 * 
+	 * @param curve
+	 * @return send user to the "add" view to create a new entity object
+	 */
     @GetMapping("/curvePoint/add")
     public String addCurveForm(CurvePoint curve) {
     	
@@ -41,6 +51,13 @@ public class CurveController {
         return "curvePoint/add";
     }
 
+    /***
+     * 
+     * @param curve
+     * @param result
+     * @param model
+     * @return send the user back to the "list" page if the curve was correct. Keeps the user on the add page if the curve did contain errors
+     */
     @PostMapping("/curvePoint/validate")
     public String validate(@RequestBody @Valid CurvePoint curvePoint, BindingResult result, Model model) {
     	
@@ -54,6 +71,12 @@ public class CurveController {
         return "curvePoint/add";
     }
 
+    /***
+     * sends the user to the "update" page containing the right curve
+     * @param id
+     * @param model
+     * @return to the endpoint to post the update
+     */
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	
@@ -66,6 +89,14 @@ public class CurveController {
         
     }
 
+    /***
+     * 
+     * @param id
+     * @param curveList
+     * @param result
+     * @param model
+     * @return send the user back to the "list" page when the curve was correct. Keeps the user on the update page if the curve did contain errors
+     */
     @PostMapping("/curvePoint/update/{id}")
     public String updateCurvePoint(@PathVariable("id") Integer id, @RequestBody @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
@@ -82,7 +113,13 @@ public class CurveController {
     	
         return "redirect:/curvePoint/list";
     }
-
+    
+    /***
+     * 
+     * @param id
+     * @param model
+     * @return redirect user to the "list" page after deletion of the object
+     */
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteCurve(@PathVariable("id") Integer id, Model model) {
     	

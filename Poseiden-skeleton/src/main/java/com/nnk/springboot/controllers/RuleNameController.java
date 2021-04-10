@@ -25,6 +25,11 @@ public class RuleNameController {
 	@Autowired
 	RuleNameService ruleService;
 
+	/***
+	 * 
+	 * @param model
+	 * @return to the page "list" with all the existing object for this entity
+	 */
     @RequestMapping("/ruleName/list")
     public String home(Model model) {
     	
@@ -35,6 +40,11 @@ public class RuleNameController {
         return "ruleName/list";
     }
 
+    /***
+	 * 
+	 * @param rule
+	 * @return send user to the "add" view to create a new entity object
+	 */
     @GetMapping("/ruleName/add")
     public String addRuleForm(RuleName rule) {
     	
@@ -43,6 +53,13 @@ public class RuleNameController {
         return "ruleName/add";
     }
 
+    /***
+     * 
+     * @param rule
+     * @param result
+     * @param model
+     * @return send the user back to the "list" page if the rule was correct. Keeps the user on the add page if the rule did contain errors
+     */
     @PostMapping("/ruleName/validate")
     public String validate(@RequestBody @Valid RuleName ruleName, BindingResult result, Model model) {
     	
@@ -57,6 +74,12 @@ public class RuleNameController {
         return "ruleName/add";
     }
 
+    /***
+     * sends the user to the "update" page containing the right rule
+     * @param id
+     * @param model
+     * @return to the endpoint to post the update
+     */
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	
@@ -68,6 +91,14 @@ public class RuleNameController {
         return "ruleName/update";
     }
 
+    /***
+     * 
+     * @param id
+     * @param ruleName
+     * @param result
+     * @param model
+     * @return send the user back to the "list" page when the rule was correct. Keeps the user on the update page if the rule did contain errors
+     */
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @RequestBody @Valid RuleName ruleName,
                              BindingResult result, Model model) {
@@ -85,6 +116,12 @@ public class RuleNameController {
         return "redirect:/ruleName/list";
     }
 
+    /***
+     * 
+     * @param id
+     * @param model
+     * @return redirect user to the "list" page after deletion of the object
+     */
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
     	

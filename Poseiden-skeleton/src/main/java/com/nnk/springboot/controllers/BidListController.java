@@ -38,6 +38,11 @@ public class BidListController {
         return "bidList/list";
     }
 
+	/***
+	 * 
+	 * @param bid
+	 * @return add view for a new bid
+	 */
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bid) {
     	
@@ -45,6 +50,11 @@ public class BidListController {
         return "bidList/add";
     }
     
+    /***
+     * 
+     * @param bid
+     * @return the bid that has been saved to the database
+     */
     @PostMapping("/bidList/add")
     public BidList saveBidList(@RequestBody BidList bid) {
     	
@@ -52,6 +62,13 @@ public class BidListController {
     	return bidListService.saveBid(bid);
     }
 
+    /***
+     * 
+     * @param bid
+     * @param result
+     * @param model
+     * @return send the user back to the "list" page when the bid was correct. Keeps the user on the add page if the bid did contain errors
+     */
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
     	
@@ -65,6 +82,12 @@ public class BidListController {
         return "bidList/add";
     }
 
+    /***
+     * 
+     * @param id
+     * @param model
+     * @return to the endpoint to post the update
+     */
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	
@@ -76,6 +99,14 @@ public class BidListController {
         return "bidList/update";
     }
 
+    /***
+     * 
+     * @param id
+     * @param bidList
+     * @param result
+     * @param model
+     * @return send the user back to the "list" page when the bid was correct. Keeps the user on the update page if the bid did contain errors
+     */
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid @RequestBody BidList bidList,
                              BindingResult result, Model model) {
@@ -93,6 +124,12 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
+    /***
+     * 
+     * @param id
+     * @param model
+     * @return redirect user to the "list" page after deletion of the object
+     */
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
     	

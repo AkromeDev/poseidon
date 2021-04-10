@@ -25,6 +25,11 @@ public class TradeController {
 	@Autowired
 	TradeService tradeService;
 
+	/***
+	 * 
+	 * @param model
+	 * @return to the page "list" with all the existing object for this entity
+	 */
     @RequestMapping("/trade/list")
     public String home(Model model) {
     	
@@ -33,6 +38,11 @@ public class TradeController {
         return "trade/list";
     }
 
+    /***
+	 * 
+	 * @param trade
+	 * @return send user to the "add" view to create a new entity object
+	 */
     @GetMapping("/trade/add")
     public String addTrade(Trade trade) {
     	
@@ -41,6 +51,13 @@ public class TradeController {
         return "trade/add";
     }
 
+    /***
+     * 
+     * @param trade
+     * @param result
+     * @param model
+     * @return send the user back to the "list" page if the trade was correct. Keeps the user on the add page if the trade did contain errors
+     */
     @PostMapping("/trade/validate")
     public String validate(@RequestBody @Valid Trade trade, BindingResult result, Model model) {
     	
@@ -54,6 +71,12 @@ public class TradeController {
         return "trade/add";
     }
 
+    /***
+     * sends the user to the "update" page containing the right trade
+     * @param id
+     * @param model
+     * @return to the endpoint to post the update
+     */
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	
@@ -65,6 +88,14 @@ public class TradeController {
         return "trade/update";
     }
 
+    /***
+     * 
+     * @param id
+     * @param trade
+     * @param result
+     * @param model
+     * @return send the user back to the "list" page when the trade was correct. Keeps the user on the update page if the trade did contain errors
+     */
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @RequestBody @Valid Trade trade,
                              BindingResult result, Model model) {
@@ -82,6 +113,12 @@ public class TradeController {
         return "redirect:/trade/list";
     }
 
+    /***
+     * 
+     * @param id
+     * @param model
+     * @return redirect user to the "list" page after deletion of the object
+     */
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
     	

@@ -25,6 +25,11 @@ public class RatingController {
 	@Autowired
 	RatingService ratingService;
 
+	/***
+	 * 
+	 * @param model
+	 * @return to the page "list" with all the existing object for this entity
+	 */
     @RequestMapping("/rating/list")
     public String home(Model model) {
     	
@@ -34,6 +39,11 @@ public class RatingController {
         return "rating/list";
     }
 
+    /***
+	 * 
+	 * @param rating
+	 * @return send user to the "add" view to create a new entity object
+	 */
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
     	
@@ -42,6 +52,13 @@ public class RatingController {
         return "rating/add";
     }
 
+    /***
+     * 
+     * @param rating
+     * @param result
+     * @param model
+     * @return send the user back to the "list" page if the rating was correct. Keeps the user on the add page if the rating did contain errors
+     */
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
     	
@@ -56,6 +73,12 @@ public class RatingController {
         return "rating/add";
     }
 
+    /***
+     * sends the user to the "update" page containing the right rating
+     * @param id
+     * @param model
+     * @return to the endpoint to post the update
+     */
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	
@@ -67,6 +90,14 @@ public class RatingController {
         return "rating/update";
     }
 
+    /***
+     * 
+     * @param id
+     * @param rating
+     * @param result
+     * @param model
+     * @return send the user back to the "list" page when the rating was correct. Keeps the user on the update page if the rating did contain errors
+     */
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
@@ -84,6 +115,12 @@ public class RatingController {
         return "redirect:/rating/list";
     }
 
+    /***
+     * 
+     * @param id
+     * @param model
+     * @return redirect user to the "list" page after deletion of the object
+     */
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
     	
