@@ -61,7 +61,7 @@ public class RuleNameController {
      * @return send the user back to the "list" page if the rule was correct. Keeps the user on the add page if the rule did contain errors
      */
     @PostMapping("/ruleName/validate")
-    public String validate(@RequestBody @Valid RuleName ruleName, BindingResult result, Model model) {
+    public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
     	
     	log.info("accessing /ruleName/validate endpoint with validate method");
     	
@@ -100,7 +100,7 @@ public class RuleNameController {
      * @return send the user back to the "list" page when the rule was correct. Keeps the user on the update page if the rule did contain errors
      */
     @PostMapping("/ruleName/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @RequestBody @Valid RuleName ruleName,
+    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
                              BindingResult result, Model model) {
     	
     	log.info("accessing /ruleName/update/{id} endpoint with updateRuleName method");

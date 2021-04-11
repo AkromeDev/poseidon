@@ -108,7 +108,7 @@ public class BidListController {
      * @return send the user back to the "list" page when the bid was correct. Keeps the user on the update page if the bid did contain errors
      */
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid @RequestBody BidList bidList,
+    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
                              BindingResult result, Model model) {
     	
     	log.info("accessing /bidList/update/{id} endpoint with updateBid method");

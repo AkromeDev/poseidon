@@ -59,7 +59,7 @@ public class TradeController {
      * @return send the user back to the "list" page if the trade was correct. Keeps the user on the add page if the trade did contain errors
      */
     @PostMapping("/trade/validate")
-    public String validate(@RequestBody @Valid Trade trade, BindingResult result, Model model) {
+    public String validate(@Valid Trade trade, BindingResult result, Model model) {
     	
     	log.info("accessing /trade/validate endpoint with validate method");
     	
@@ -97,7 +97,7 @@ public class TradeController {
      * @return send the user back to the "list" page when the trade was correct. Keeps the user on the update page if the trade did contain errors
      */
     @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @RequestBody @Valid Trade trade,
+    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
     	
     	log.info("accessing /trade/update/{id} endpoint with updateTrade method");

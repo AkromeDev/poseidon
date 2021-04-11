@@ -45,7 +45,7 @@ public class UserController {
     }
     
     @PostMapping("/user/validate")
-    public String validate(@RequestBody @Valid User user, BindingResult result, Model model) {
+    public String validate(@Valid User user, BindingResult result, Model model) {
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @PostMapping("/user/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @RequestBody @Valid User user,
+    public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "user/update";
