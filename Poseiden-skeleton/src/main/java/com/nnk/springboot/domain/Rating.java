@@ -21,12 +21,15 @@ public class Rating {
 	Integer id;
 	
 	@Column(name = "moodysRating")
+	@NotNull(message = "moodysRating id is mandatory")
 	String moodysRating;
 	
 	@Column(name = "sandPRating")
+	@NotNull(message = "sandPRating id is mandatory")
 	String sandPRating;
 	
 	@Column(name = "fitchRating")
+	@NotNull(message = "fitchRating id is mandatory")
 	String fitchRating;
 	
 	@Column(name = "orderNumber")
