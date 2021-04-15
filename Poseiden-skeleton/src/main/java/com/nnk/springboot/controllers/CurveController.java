@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,7 +60,7 @@ public class CurveController {
      * @return send the user back to the "list" page if the curve was correct. Keeps the user on the add page if the curve did contain errors
      */
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute("curvePoint") CurvePoint curvePoint, BindingResult result, Model model) {
     	
     	log.info("accessing /curvePoint/validate endpoint with validate method");
     	
@@ -98,7 +99,7 @@ public class CurveController {
      * @return send the user back to the "list" page when the curve was correct. Keeps the user on the update page if the curve did contain errors
      */
     @PostMapping("/curvePoint/update/{id}")
-    public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
+    public String updateCurvePoint(@PathVariable("id") Integer id, @Valid @ModelAttribute("curvePoint") CurvePoint curvePoint,
                              BindingResult result, Model model) {
     	
     	log.info("accessing /curvePoint/update/{id} endpoint with updateCurvePoint method");

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,7 +70,7 @@ public class BidListController {
      * @return send the user back to the "list" page when the bid was correct. Keeps the user on the add page if the bid did contain errors
      */
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bid, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute BidList bid, BindingResult result, Model model) {
     	
     	log.info("accessing /bidList/validate endpoint with validate method" + bid);
     	
@@ -108,12 +108,13 @@ public class BidListController {
      * @return send the user back to the "list" page when the bid was correct. Keeps the user on the update page if the bid did contain errors
      */
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable final Integer id, @Valid @RequestBody BidList bidList,
+    public String updateBid(@PathVariable Integer id, @Valid @ModelAttribute("bidList") BidList bidList,
                              BindingResult result, Model model) {
     	
     	log.info("accessing /bidList/update/{id} endpoint with updateBid method");
     	
     	if (result.hasErrors()) {
+    		log.error("Result has errors : " + result.getAllErrors().toString());
             return "bidList/update";
         }
 

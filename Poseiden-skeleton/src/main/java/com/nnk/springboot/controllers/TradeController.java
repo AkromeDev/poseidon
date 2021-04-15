@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,7 +60,7 @@ public class TradeController {
      * @return send the user back to the "list" page if the trade was correct. Keeps the user on the add page if the trade did contain errors
      */
     @PostMapping("/trade/validate")
-    public String validate(@Valid Trade trade, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute("trade") Trade trade, BindingResult result, Model model) {
     	
     	log.info("accessing /trade/validate endpoint with validate method");
     	
@@ -97,7 +98,7 @@ public class TradeController {
      * @return send the user back to the "list" page when the trade was correct. Keeps the user on the update page if the trade did contain errors
      */
     @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
+    public String updateTrade(@PathVariable("id") Integer id, @Valid @ModelAttribute("trade") Trade trade,
                              BindingResult result, Model model) {
     	
     	log.info("accessing /trade/update/{id} endpoint with updateTrade method");
