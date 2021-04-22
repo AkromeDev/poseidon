@@ -16,6 +16,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -39,6 +41,7 @@ import com.nnk.springboot.repositories.BidListRepository;
 		classes = Application.class)
 @AutoConfigureMockMvc(secure = false)
 @TestPropertySource(locations = "classpath:application-test.properties")
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 class BidControllerTestIT {
 	
 	@Autowired
@@ -54,7 +57,6 @@ class BidControllerTestIT {
 	private WebApplicationContext webApplicationContext;
 	
 	private BidList bid;
-	private BidList updatedBid;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -83,7 +85,7 @@ class BidControllerTestIT {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 		
-		BidList bidFromRepo = bidRepo.findById(2).get();
+		BidList bidFromRepo = bidRepo.findById(1).get();
 		
 	 	assertEquals(666, bidFromRepo.getBidQuantity());
         assertEquals(someBid.getAccount(), bidFromRepo.getAccount());
@@ -96,14 +98,18 @@ class BidControllerTestIT {
 	@DisplayName("2 Asserts that the bid has been correctly updated and that there is only one bid in the database")
 	public void addBidListTest() throws Exception {
 		
-		updatedBid = bid;
-		updatedBid.setAccount("second account");
+		bidRepo.save(bid);
+		
+		BidList updatedBid = bid;
+		
+		updatedBid.setAccount("new account");
+		updatedBid.setBidListId(null);
 		
 		mockMvc.perform(MockMvcRequestBuilders.post("/bidList/update/{id}", 1)
-					.accept(MediaType.APPLICATION_JSON)
-	                .content(new ObjectMapper().writeValueAsString(updatedBid))
-	                .contentType(MediaType.APPLICATION_JSON))
-	                .andExpect(status().is3xxRedirection());
+				.flashAttr("bidList", updatedBid)
+				.accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is3xxRedirection());
 		
         BidList bidFromRepo = bidRepo.findById(1).get();
         
@@ -115,6 +121,8 @@ class BidControllerTestIT {
     @Test
     @DisplayName("3 Asserts that the bid with the Id 1 has been succesfully deleted")
     void saveBidListTest() throws Exception {
+    	
+    	bidRepo.save(bid);
     	
         mockMvc.perform(MockMvcRequestBuilders.get("/bidList/delete/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON))
