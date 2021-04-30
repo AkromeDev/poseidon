@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +61,7 @@ public class RatingController {
      * @return send the user back to the "list" page if the rating was correct. Keeps the user on the add page if the rating did contain errors
      */
     @PostMapping("/rating/validate")
-    public String validate(@Valid Rating rating, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute("rating") Rating rating, BindingResult result, Model model) {
     	
     	log.info("accessing /rating/validate endpoint with validate method");
     	
@@ -99,7 +100,7 @@ public class RatingController {
      * @return send the user back to the "list" page when the rating was correct. Keeps the user on the update page if the rating did contain errors
      */
     @PostMapping("/rating/update/{id}")
-    public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
+    public String updateRating(@PathVariable("id") Integer id, @Valid @ModelAttribute("rating")Rating rating,
                              BindingResult result, Model model) {
     	
     	log.info("accessing /rating/update/{id} endpoint with updateRating method");
